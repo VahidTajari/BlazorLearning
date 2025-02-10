@@ -11,7 +11,8 @@
 @code {
     async Task TestSuccess(string message)
     {
-        await JsRuntime.InvokeVoidAsync("ShowToastr", "success", message);
+        //await JsRuntime.InvokeVoidAsync("ShowToastr", "success", message);
+        await JsRuntime.ToastrSuccess(message);
     }
 
     async Task TestFailure(string message)

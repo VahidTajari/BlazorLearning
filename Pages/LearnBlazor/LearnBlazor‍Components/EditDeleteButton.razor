@@ -1,6 +1,6 @@
 ﻿@if (IsAdmin)
 {
-    <input type="button" class="btn btn-danger" value="Delete" />
+    <input type="button" class="btn btn-danger" value="Delete" @onclick="OnDelete" />
     <input type="button" class="btn btn-success" value="Edit" />
 }
 
@@ -8,4 +8,5 @@
 @code
 {
     [Parameter] public bool IsAdmin { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
 }

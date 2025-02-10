@@ -14,7 +14,13 @@
         }
     }
                 
-    <EditDeleteButton IsAdmin="true"></EditDeleteButton>
+    <EditDeleteButton IsAdmin="true" OnDelete="OnDeleteClicked"></EditDeleteButton>
+    
+    <Confirmation @ref="Confirmation1" OnCancel="OnCancelClicked" OnConfirm="@(() => OnDeleteSelectedRoom.InvokeAsync(room))">
+        <div>
+            Do you want to delete `@room.Name`?
+        </div>
+    </Confirmation>
 </div>
 
 
@@ -27,5 +33,18 @@
     async Task RoomCheckBoxSelectionChanged(ChangeEventArgs e)
     {
         await OnRoomCheckBoxSelection.InvokeAsync((bool)e.Value);
+    }
+    Confirmation Confirmation1;
+    [Parameter]
+    public EventCallback<BlazorRoom> OnDeleteSelectedRoom { get; set; }
+
+    void OnDeleteClicked()
+    {
+        Confirmation1.Show();
+    }
+
+    void OnCancelClicked()
+    {
+        // Confirmation1.Hide();
     }
 }

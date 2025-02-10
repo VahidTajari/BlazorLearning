@@ -7,7 +7,7 @@
     <div class="row container">
         @foreach (var room in Rooms)
         {
-            <IndividualRoom room="room" OnRoomCheckBoxSelection="RoomSelectionCounterChanged"></IndividualRoom>
+            <IndividualRoom room="room" OnRoomCheckBoxSelection="RoomSelectionCounterChanged" OnDeleteSelectedRoom="@(selectedRoom => Rooms.Remove(selectedRoom))"></IndividualRoom>
         }
     </div>
     <h2 class="text-info">Hotel Amenities</h2>
