@@ -1,0 +1,19 @@
+﻿@page "/LearnRouting"
+@page "/NewRouting"
+@page "/LearnRouting/{parameter1}"
+@page "/NewRouting/{parameter1}/{parameter2}"
+<h3>LearnRouting</h3>
+<h3>Learn Routing</h3>
+
+<p>Parameter1: @Parameter1</p>
+<p>Parameter2: @Parameter2</p>
+<NavLink class="btn btn-scondary" href="learnAdvancedRouting?param1=value1&param2=value2">
+    <span class="oi oi-list-rich" aria-hidden="true"></span> Learn Advanced Routing
+</NavLink>
+@code {
+    [Parameter]
+    public string Parameter1 { set; get; }
+
+    [Parameter]
+    public string Parameter2 { set; get; }
+}

@@ -1,0 +1,53 @@
+﻿<h3 class="ml-3 mr-3">Lifecycles Child Componenet @CountValue</h3>
+
+@code
+{
+    [Parameter]
+    public int CountValue { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("  Child - OnInitialized is called");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(100);
+        Console.WriteLine("  Child - OnInitializedAsync is called");
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("  Child - OnParameterSet is called");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(100);
+        Console.WriteLine("  Child - OnParametersSetAsync is called");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("  Child - OnAfterRender(firstRender == true) is called");
+        }
+        else
+        {
+            Console.WriteLine("  Child - OnAfterRender(firstRender == false) is called");
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Delay(100);
+        Console.WriteLine("  Child - OnAfterRenderAsync is called");
+    }
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("  Child - ShouldRender is called");
+        return true;
+    }
+}

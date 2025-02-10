@@ -1,0 +1,25 @@
+﻿@page "/BlazorJSToaster"
+
+@inject IJSRuntime JsRuntime
+
+
+<div class="row">
+    <button class="btn btn-success" @onclick="@(()=>TestSuccess("Success Message"))">Test Toastr Success</button>
+    <button class="btn btn-danger" @onclick="@(()=>TestFailure("Error Message"))">Test Toastr Failure</button>
+</div>
+
+@code {
+    async Task TestSuccess(string message)
+    {
+        await JsRuntime.InvokeVoidAsync("ShowToastr", "success", message);
+    }
+
+    async Task TestFailure(string message)
+    {
+        await JsRuntime.InvokeVoidAsync("ShowToastr", "error", message);
+    }
+}<h3>BlazorJsToaster</h3>
+
+@code {
+
+}

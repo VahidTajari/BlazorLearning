@@ -1,0 +1,86 @@
+﻿@page "/lifecycle"
+<div class="border">
+    <h3>Lifecycles Parent Component</h3>
+    <div class="border">
+        <LifecycleChild CountValue="CurrentCount"></LifecycleChild>
+    </div>
+    <p>Current count: @CurrentCount</p>
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    <br /><br />
+    <button class="btn btn-primary" @onclick="StartCountdown">Start CountDown</button>@MaxCount
+</div>
+
+@code
+{
+    int CurrentCount = 0;
+    int MaxCount = 5;
+
+    private void IncrementCount()
+    {
+        CurrentCount++;
+        Console.WriteLine("Parnet - IncrementCount is called");
+    }
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("Parnet - OnInitialized is called");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(100);
+        Console.WriteLine("Parnet - OnInitializedAsync is called");
+    }
+
+    protected override void OnParametersSet()
+    {
+        Console.WriteLine("Parnet - OnParameterSet is called");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(100);
+        Console.WriteLine("Parnet - OnParametersSetAsync is called");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("Parnet - OnAfterRender(firstRender == true) is called");
+            CurrentCount = 111;
+        }
+        else
+        {
+            CurrentCount = 999;
+            Console.WriteLine("Parnet - OnAfterRender(firstRender == false) is called");
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Task.Delay(100);
+        Console.WriteLine("Parnet - OnAfterRenderAsync is called");
+    }
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("Parnet - ShouldRender is called");
+        return true;
+    }
+
+    void StartCountdown()
+    {
+        Console.WriteLine("Parnet - StartCountdown()");
+        var timer = new Timer(TimeCallBack, null, 1000, 1000);
+    }
+
+    void TimeCallBack(object state)
+    {
+        if (MaxCount > 0)
+        {
+            MaxCount--;
+            Console.WriteLine("Parnet - InvokeAsync(StateHasChanged)");
+            InvokeAsync(StateHasChanged);
+        }
+    }
+}

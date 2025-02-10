@@ -1,0 +1,114 @@
+﻿@page "/demoHotel"
+
+<h3>Hotel Rooms</h3>
+<span>Room Selected - @SelectedRooms</span>
+<div class="border p-2 mt-2" style="background-color: azure">
+    <h2 class="text-info">Rooms List</h2>
+    <div class="row container">
+        @foreach (var room in Rooms)
+        {
+            <IndividualRoom room="room" OnRoomCheckBoxSelection="RoomSelectionCounterChanged"></IndividualRoom>
+        }
+    </div>
+    <h2 class="text-info">Hotel Amenities</h2>
+    <div class="row container">
+        @foreach (var amenity in AmenitiesList)
+        {
+            <IndividualAmenity Amenity="@amenity" OnAmenitySelection="AmenitySelectionChanged"></IndividualAmenity>
+        }
+        <div class="col-12">
+            <p class="text-secondary"> Selected Amenity : @SelectedAmenity </p>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    string SelectedRoomPropValue = "";
+
+    List<BlazorRoom> Rooms = new List<BlazorRoom>();
+    List<BlazorAmenity> AmenitiesList = new List<BlazorAmenity>();
+    int SelectedRooms;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        base.OnInitialized();
+
+        Rooms.Add(new BlazorRoom
+            {
+                Id = 1,
+                Name = "Room 1",
+                IsActive = true,
+                Price = 499,
+                Props = new List<BlazorRoomProp>
+            {
+                new BlazorRoomProp
+                {
+                    Id = 1, Name = "Sq Ft", Value = "100"
+                },
+                new BlazorRoomProp
+                {
+                    Id = 2, Name = "Occupancy", Value = "3"
+                }
+            }
+            });
+
+        Rooms.Add(new BlazorRoom
+            {
+                Id = 2,
+                Name = "Room 2",
+                IsActive = true,
+                Price = 399,
+                Props = new List<BlazorRoomProp>
+            {
+                new BlazorRoomProp
+                {
+                    Id = 1, Name = "Sq Ft", Value = "250"
+                },
+                new BlazorRoomProp
+                {
+                    Id = 2, Name = "Occupancy", Value = "4"
+                }
+            }
+            });
+
+        AmenitiesList.Add(new BlazorAmenity
+            {
+                Id = 111,
+                Name = "Gym",
+                Description = "24x7 gym room is available."
+            });
+        AmenitiesList.Add(new BlazorAmenity
+            {
+                Id = 222,
+                Name = "Swimming Pool",
+                Description = "Pool room is open from 6am to 10pm."
+            });
+        AmenitiesList.Add(new BlazorAmenity
+            {
+                Id = 333,
+                Name = "Free Brakfast",
+                Description = "Enjoy free breakfast at out hotel."
+            });
+    }
+
+    void RoomSelectionCounterChanged(bool isRoomSelected)
+    {
+        if (isRoomSelected)
+        {
+            SelectedRooms++;
+        }
+        else
+        {
+            SelectedRooms--;
+        }
+    }
+
+    string SelectedAmenity = "";
+
+    void AmenitySelectionChanged(string amenity)
+    {
+        SelectedAmenity = amenity;
+    }
+}
